@@ -20,7 +20,7 @@ enum ACTION_RULES {
     VALIDATE = "validate"
 }
 
-const useForm = <T extends FormState>() => {
+const useForm = <T extends object>() => {
     const [formFields, setFormFields] = useState<T>({} as T) 
     const formFieldsRef = useRef<T>({} as T); 
     const [formErrors, setFormErrors] = useState<FormErrors>({});
@@ -123,7 +123,7 @@ const useForm = <T extends FormState>() => {
 
     const getValues = (fieldName?: keyof T): string | FormState => {
         if (fieldName) return formFieldsRef.current[fieldName] || "";
-        return formFieldsRef.current;
+        return formFieldsRef.current as FormState;
     };
 
     return {
